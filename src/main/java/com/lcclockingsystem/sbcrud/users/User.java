@@ -14,7 +14,10 @@ public class User {
     private Integer id;
     private String firstname;
     private String lastname;
+
+    @Column(unique = true)
     private String email;
+
     private String role = "user";
     private String password;
 

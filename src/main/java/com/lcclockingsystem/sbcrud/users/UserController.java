@@ -34,7 +34,7 @@ public class UserController {
 
     // add a user
     @PostMapping("/add")
-    public ResponseEntity<User> add(@RequestBody User user){
+    public ResponseEntity<User> add(@RequestBody User user) throws IllegalAccessException {
         return new ResponseEntity<>(userService.add(user), CREATED);
     }
 
@@ -50,9 +50,4 @@ public class UserController {
         userService.delete(id);
     }
 
-    // delete a user
-    @DeleteMapping("/all")
-    public void delete(){
-        userService.deleteAll();
-    }
 }

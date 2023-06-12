@@ -12,7 +12,11 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
 
     @Override
-    public User add(User user) {
+    public User add(User user) throws IllegalAccessException {
+        User existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser != null){
+            throw new IllegalAccessException("User not found!");
+        }
         return userRepository.save(user);
     }
 
@@ -29,11 +33,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public void delete(Integer id) {
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public void deleteAll() {
-        userRepository.deleteAll();
     }
 
     @Override
