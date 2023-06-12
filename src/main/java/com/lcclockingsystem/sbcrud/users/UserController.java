@@ -19,6 +19,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/users")
 public class UserController {
     private UserService userService;
+    private PasswordService passwordService;
 
     // get all users
     @GetMapping("/all")
@@ -35,6 +36,8 @@ public class UserController {
     // add a user
     @PostMapping("/add")
     public ResponseEntity<User> add(@RequestBody User user) throws IllegalAccessException {
+        String hashedPassword = passwordService.hashPassword(user.getPassword());
+        user.setPassword(hashedPassword);
         return new ResponseEntity<>(userService.add(user), CREATED);
     }
 
