@@ -17,6 +17,9 @@ public interface UserService {
     // delete a user
     void delete(Integer id);
 
+    // delete all
+    void deleteAll();
+
     // get a user by id
     Optional<User> getById(Integer id) throws Exception;
 }

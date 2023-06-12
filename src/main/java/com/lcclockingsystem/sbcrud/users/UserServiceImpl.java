@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public void deleteAll() {
+        userRepository.deleteAll();
+    }
+
+    @Override
     public Optional<User> getById(Integer id) throws Exception {
         return userRepository.findById(id);
     }

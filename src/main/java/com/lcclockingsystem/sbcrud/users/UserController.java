@@ -1,6 +1,8 @@
 package com.lcclockingsystem.sbcrud.users;
 
 import lombok.AllArgsConstructor;
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +11,7 @@ import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @RestController
 @AllArgsConstructor
@@ -20,6 +23,7 @@ import static org.springframework.http.HttpStatus.OK;
 public class UserController {
     private UserService userService;
     private PasswordService passwordService;
+    private UserRepository userRepository;
 
     // get all users
     @GetMapping("/all")
@@ -47,10 +51,27 @@ public class UserController {
         return new ResponseEntity<>(userService.update(user), CREATED);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody LoginData loginData){
+        String email = loginData.getEmail();
+        String password = loginData.getPassword();
+        User user = userRepository.findByEmail(email);
+
+        if (user != null && BCrypt.checkpw(password, user.getPassword()))
+            return new ResponseEntity<>(user, OK);
+        return ResponseEntity.status(UNAUTHORIZED).body(null);
+    }
+
     // delete a user
     @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") Integer id){
         userService.delete(id);
+    }
+
+    // delete all users
+    @DeleteMapping("/all")
+    public void deleteAll(){
+        userService.deleteAll();
     }
 
 }
