@@ -1,5 +1,17 @@
 package com.lcclockingsystem.sbcrud.clocking;
 
+import java.util.List;
+
 public interface ClockingService {
-    public ClockingDetail add(ClockingDetail clockingDetail);
+    // add a user
+    ClockingDetail add(ClockingDetail record) throws IllegalAccessException;
+
+    // get all clocking records
+    List<ClockingDetail> getClockingRecordsById();
+
+    // update a clocking record
+    ClockingDetail update(ClockingDetail record);
+
+    // delete a clocking record
+    void delete(Integer id);
 }
