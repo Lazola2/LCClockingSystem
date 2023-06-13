@@ -10,9 +10,9 @@ import java.time.LocalTime;
 
 @Data
 @Entity
-@Table(name="clocking")
+@Table(name="clocking_details")
 @NoArgsConstructor
-public class Clocking {
+public class ClockingDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cid;
