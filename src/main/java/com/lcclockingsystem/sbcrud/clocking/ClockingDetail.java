@@ -23,4 +23,9 @@ public class ClockingDetail {
     @ManyToOne
     @JoinColumn(name="userId", referencedColumnName = "id")
     private User user;
+
+    // get the user's id
+    public int getUserId(){
+        return this.user.getId();
+    }
 }
