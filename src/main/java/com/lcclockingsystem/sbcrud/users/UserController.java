@@ -2,7 +2,6 @@ package com.lcclockingsystem.sbcrud.users;
 
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
