@@ -7,7 +7,7 @@ public interface ClockingService {
     ClockingDetail add(ClockingDetail record) throws IllegalAccessException;
 
     // get all clocking records
-    List<ClockingDetail> getClockingRecordsById();
+    List<ClockingDetail> getClockingRecordsById(Integer userId);
 
     // update a clocking record
     ClockingDetail update(ClockingDetail record);
