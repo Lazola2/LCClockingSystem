@@ -18,8 +18,6 @@ public class ClockingRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer clocking_id;
 
-    private UserRepository userRepository;
-
     // clock in time should be generated as current time
     private LocalTime clockIn = LocalTime.now();
 
@@ -31,8 +29,6 @@ public class ClockingRecord {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public ClockingRecord(){
 
-    }
 }
 
