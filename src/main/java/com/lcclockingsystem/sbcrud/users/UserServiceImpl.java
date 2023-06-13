@@ -1,15 +1,23 @@
 package com.lcclockingsystem.sbcrud.users;
 
-import lombok.AllArgsConstructor;
+import com.lcclockingsystem.sbcrud.clocking.ClockingRecord;
+import com.lcclockingsystem.sbcrud.clocking.ClockingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
+    private ClockingRepository clockingRepository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, ClockingRepository clockingRepository){
+        this.userRepository = userRepository;
+        this.clockingRepository = clockingRepository;
+    }
 
     @Override
     public User add(User user) throws IllegalAccessException {
@@ -43,5 +51,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public Optional<User> getById(Integer id) throws Exception {
         return userRepository.findById(id);
+    }
+
+    public void saveClockingRecord(ClockingRecord clockingRecord){
+        clockingRepository.save(clockingRecord);
     }
 }

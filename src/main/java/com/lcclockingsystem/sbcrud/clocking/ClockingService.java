@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface ClockingService {
     // add a user
-    ClockingDetail add(ClockingDetail record) throws IllegalAccessException;
+    ClockingRecord add(ClockingRecord record) throws IllegalAccessException;
 
     // get all clocking records
-    List<ClockingDetail> getClockingRecordsById(Integer userId);
+    List<ClockingRecord> getClockingRecordsById(Integer userId);
 
     // update a clocking record
-    ClockingDetail update(ClockingDetail record);
+    ClockingRecord update(ClockingRecord record);
 
     // delete a clocking record
     void delete(Integer id);

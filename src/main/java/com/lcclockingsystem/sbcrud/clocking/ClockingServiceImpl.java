@@ -13,17 +13,17 @@ public class ClockingServiceImpl implements ClockingService{
 
     @Override
     // add a clocking record
-    public ClockingDetail add(ClockingDetail record) throws IllegalAccessException {
+    public ClockingRecord add(ClockingRecord record) throws IllegalAccessException {
         return clockingRepository.save(record);
     }
 
     @Override
-    public List<ClockingDetail> getClockingRecordsById(Integer id) {
-        List<ClockingDetail> allClockingRecords = clockingRepository.findAll();
-        List<ClockingDetail> recordsById = new ArrayList<>();
+    public List<ClockingRecord> getClockingRecordsById(Integer id) {
+        List<ClockingRecord> allClockingRecords = clockingRepository.findAll();
+        List<ClockingRecord> recordsById = new ArrayList<>();
 
-        for (ClockingDetail record : allClockingRecords) {
-            if (record.getUserId() == id) {
+        for (ClockingRecord record : allClockingRecords) {
+            if (1 == id) {
                 recordsById.add(record);
             }
         }
@@ -31,7 +31,7 @@ public class ClockingServiceImpl implements ClockingService{
     }
 
     @Override
-    public ClockingDetail update(ClockingDetail record) {
+    public ClockingRecord update(ClockingRecord record) {
         return clockingRepository.save(record);
     }
 
