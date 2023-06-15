@@ -1,5 +1,6 @@
 package com.lcclockingsystem.sbcrud.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lcclockingsystem.sbcrud.clocking.ClockingRecord;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -23,10 +24,8 @@ public class User {
     private String role = "user";
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "f_key", referencedColumnName = "user_id")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
     private List<ClockingRecord> clockingRecords;
 
 }
-
-
