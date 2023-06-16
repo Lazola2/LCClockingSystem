@@ -49,7 +49,7 @@ public class ClockingController {
 
 
         // Find the user from the repository based on the provided user_id
-        User user = userRepository.findById(clockingRecordRequest.getU_id())
+        User user = userRepository.findById(clockingRecordRequest.getUser_id())
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         // Set the user on the clocking record
