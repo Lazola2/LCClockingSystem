@@ -40,13 +40,9 @@ public class ClockingController {
 //    }
 
     @PostMapping("/add")
-    ClockingRecord add(
-            @RequestBody ClockingRecord clockingRecordRequest
-    ) throws Exception {
-
+    ClockingRecord add(@RequestBody ClockingRecord clockingRecordRequest) throws Exception {
         ClockingRecord clockingRecord = clockingRecordRequest;
         clockingRecord.setClockOut(null);
-
 
         // Find the user from the repository based on the provided user_id
         User user = userRepository.findById(clockingRecordRequest.getUser_id())
@@ -57,10 +53,11 @@ public class ClockingController {
 
         // Save the clocking record
         return  clockingRepository.save(clockingRecord);
-
-
     }
 
-
-
+    // update a clocking record
+    @PutMapping("/update")
+    public ResponseEntity<ClockingRecord> update(@RequestBody ClockingRecord clockingRecord){
+        return new ResponseEntity<>(clockingService.update(clockingRecord), CREATED);
+    }
 }
