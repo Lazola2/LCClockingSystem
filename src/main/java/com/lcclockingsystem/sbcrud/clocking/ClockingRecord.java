@@ -26,10 +26,10 @@ public class ClockingRecord {
     private LocalTime clockOut;
     private LocalDate date = LocalDate.now();
 
-    private Integer u_id;
+    private Integer user_id;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "id", referencedColumnName = "user_id")
     private User user;
 }
