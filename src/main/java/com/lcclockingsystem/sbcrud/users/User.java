@@ -24,7 +24,7 @@ public class User {
     private String role = "user";
     private String password;
 
-    @JsonIgnore
+    
     @OneToMany(mappedBy = "user")
     private List<ClockingRecord> clockingRecords;
 
