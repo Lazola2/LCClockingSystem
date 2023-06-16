@@ -2,6 +2,7 @@ package com.lcclockingsystem.sbcrud.clocking;
 
 import com.lcclockingsystem.sbcrud.users.User;
 import com.lcclockingsystem.sbcrud.users.UserRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
