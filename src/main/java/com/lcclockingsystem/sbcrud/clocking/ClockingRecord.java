@@ -27,6 +27,7 @@ public class ClockingRecord {
 
     private Integer u_id;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
