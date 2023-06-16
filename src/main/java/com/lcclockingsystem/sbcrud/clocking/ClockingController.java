@@ -28,7 +28,7 @@ public class ClockingController {
     private UserRepository userRepository;
 
     // get all clocking records matching a user id
-    @GetMapping("/all/{user_id}")
+    @GetMapping("/all/user/{user_id}")
     public ResponseEntity<List<ClockingRecord>> getClockingRecords(@PathVariable("user_id") Integer user_id){
         return new ResponseEntity<>(clockingService.getClockingRecordsById(user_id), OK);
     }
