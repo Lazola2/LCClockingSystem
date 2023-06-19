@@ -7,6 +7,8 @@ package com.lcclockingsystem.sbcrud.clocking;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +20,7 @@ public class ClockingServiceImpl implements ClockingService{
 
     @Override
     // add a clocking record
-    public ClockingRecord add(ClockingRecord record) throws IllegalAccessException {
+    public ClockingRecord add(ClockingRecord record) {
         return clockingRepository.save(record);
     }
 
@@ -41,7 +43,63 @@ public class ClockingServiceImpl implements ClockingService{
     }
 
     @Override
-    public void delete(Integer id) {
-        clockingRepository.deleteById(id);
+    public boolean clockOut(Integer id) {
+        try {
+            // getting all the records matching the id
+            List<ClockingRecord> matchingRecords = clockingRepository.findAll().stream()
+                    .filter(record -> Objects.equals(record.getClockingId(), id))
+                    .toList();
+
+            // getting the last record from the matching records
+            ClockingRecord lastRecord = matchingRecords.get(matchingRecords.size()-1);
+
+            // updating the clock out time
+            lastRecord.setClockOut(LocalTime.now());
+            clockingRepository.save(lastRecord);
+
+            // return true if updated
+            return true;
+        } catch (Exception exception){
+            // return false if not updated
+            return  false;
+        }
     }
+
+    @Override
+    public Boolean delete(Integer userId) {
+        try {
+            // find all the clocking records
+            List<ClockingRecord> clockingRecords = clockingRepository.findAll();
+
+            // delete clocking record matching a specific userId
+            clockingRecords.forEach(clockingRecord -> {
+                if (Objects.equals(clockingRecord.getUserId(), userId)){
+                    clockingRepository.delete(clockingRecord);
+                }
+            });
+
+            // return true if deleted
+            return true;
+        } catch (Exception exception) {
+            // return false if not deleted
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean delete() {
+        try {
+            clockingRepository.findAll().forEach(clockingRecord -> {
+                clockingRepository.delete(clockingRecord);
+            });
+
+            // return true if deleted
+            return true;
+        } catch(Exception exception) {
+            // return false if not deleted
+            return false;
+        }
+    }
+
+
 }

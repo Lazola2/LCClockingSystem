@@ -4,10 +4,12 @@
 
 package com.lcclockingsystem.sbcrud.clocking;
 
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 
 public interface ClockingService {
-    // add a user
+    // add a clocking record
     ClockingRecord add(ClockingRecord record) throws IllegalAccessException;
 
     // get all clocking records
@@ -16,6 +18,12 @@ public interface ClockingService {
     // update a clocking record
     ClockingRecord update(ClockingRecord record);
 
-    // delete a clocking record
-    void delete(Integer id);
+    // clock-out a user
+    boolean clockOut(Integer id);
+
+    // delete clocking records for a specific user
+    Boolean delete(Integer id);
+
+    // delete all clocking records
+    Boolean delete();
 }

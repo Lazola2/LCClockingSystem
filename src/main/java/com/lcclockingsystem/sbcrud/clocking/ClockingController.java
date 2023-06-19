@@ -8,12 +8,14 @@ import com.lcclockingsystem.sbcrud.users.User;
 import com.lcclockingsystem.sbcrud.users.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestController
 @AllArgsConstructor
@@ -30,6 +32,11 @@ public class ClockingController {
     @GetMapping("/all/user/{userId}")
     public ResponseEntity<List<ClockingRecord>> getClockingRecords(@PathVariable("userId") Integer userId){
         return new ResponseEntity<>(clockingService.getClockingRecordsById(userId), OK);
+    }
+
+    @PutMapping("/user/{userId}/clockout")
+    public ResponseEntity<Boolean> clockOut(@PathVariable("userId") Integer userId){
+        return new ResponseEntity<>(clockingService.clockOut(userId), OK);
     }
 
     @PostMapping("/add")
@@ -52,5 +59,19 @@ public class ClockingController {
     public ResponseEntity<ClockingRecord> update(@RequestBody ClockingRecord clockingRecord){
         return new ResponseEntity<>(clockingService.update(clockingRecord), CREATED);
     }
+
+    // delete records for a specific user
+    @DeleteMapping("/delete/user/{userId}")
+    public ResponseEntity<Boolean> delete(@PathVariable Integer userId){
+        Boolean response = clockingService.delete(userId);
+        return new ResponseEntity<>(response, response ? OK : BAD_REQUEST);
+    }
+
+    @DeleteMapping("/delete/all")
+    public ResponseEntity<Boolean> delete(){
+        Boolean response = clockingService.delete();
+        return new ResponseEntity<>(response, response ? OK : BAD_REQUEST);
+    }
+
 
 }
