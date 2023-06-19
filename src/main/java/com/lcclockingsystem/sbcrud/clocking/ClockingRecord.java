@@ -19,19 +19,19 @@ import java.time.LocalTime;
 public class ClockingRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer clocking_id;
+    private Integer clockingId;
 
     // clock in time should be generated as current time
-    private LocalTime clock_in = LocalTime.now();
+    private LocalTime clockIn = LocalTime.now();
 
     // clock out time should not be generated as current time
-    private LocalTime clock_out;
+    private LocalTime clockOut;
     private LocalDate date = LocalDate.now();
 
-    private Integer user_id;
+    private Integer userId;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "user_id")
+    @JoinColumn(name = "id", referencedColumnName = "userId")
     private User user;
 }

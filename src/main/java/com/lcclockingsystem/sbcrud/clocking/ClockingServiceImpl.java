@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +28,7 @@ public class ClockingServiceImpl implements ClockingService{
         List<ClockingRecord> recordsById = new ArrayList<>();
 
         for (ClockingRecord record : allClockingRecords) {
-            if (1 == id) {
+            if (Objects.equals(record.getUserId(), id)) {
                 recordsById.add(record);
             }
         }
