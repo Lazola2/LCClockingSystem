@@ -35,8 +35,6 @@ public class ClockingController {
     @PostMapping("/add")
     // add a clocking record and set the user of the clocking record
     ClockingRecord add(@RequestBody ClockingRecord clockingRecordRequest) throws Exception {
-//        clockingRecordRequest.setClockOut(null);
-
         clockingRecordRequest.setClockOut(null);
         // Find the user from the repository based on the provided user_id
         User user = userRepository.findById(clockingRecordRequest.getUserId())
@@ -46,7 +44,6 @@ public class ClockingController {
         clockingRecordRequest.setUser(user);
 
         // Save the clocking record
-
         return  clockingRepository.save(clockingRecordRequest);
     }
 
