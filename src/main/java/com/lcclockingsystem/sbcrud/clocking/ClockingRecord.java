@@ -5,11 +5,8 @@
 package com.lcclockingsystem.sbcrud.clocking;
 
 import com.lcclockingsystem.sbcrud.users.User;
-<<<<<<< HEAD
-=======
-import com.lcclockingsystem.sbcrud.users.UserRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
->>>>>>> c1d0e2d276bc1b2a67ad575b49df126ba3e22bfc
+
 import jakarta.persistence.*;
 import lombok.Data;
 
