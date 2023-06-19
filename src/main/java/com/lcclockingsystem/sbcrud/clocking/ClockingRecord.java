@@ -5,6 +5,11 @@
 package com.lcclockingsystem.sbcrud.clocking;
 
 import com.lcclockingsystem.sbcrud.users.User;
+<<<<<<< HEAD
+=======
+import com.lcclockingsystem.sbcrud.users.UserRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+>>>>>>> c1d0e2d276bc1b2a67ad575b49df126ba3e22bfc
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -26,9 +31,10 @@ public class ClockingRecord {
     private LocalTime clock_out;
     private LocalDate date = LocalDate.now();
 
-    private Integer u_id;
+    private Integer user_id;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "id", referencedColumnName = "user_id")
     private User user;
 }
