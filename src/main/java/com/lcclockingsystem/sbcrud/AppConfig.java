@@ -1,3 +1,7 @@
+/**
+ * @author: Lazola Makubalo
+ * */
+
 package com.lcclockingsystem.sbcrud;
 
 import org.springframework.context.annotation.Bean;

@@ -1,14 +1,15 @@
+/**
+ * @author: Lazola Makubalo
+ * */
+
 package com.lcclockingsystem.sbcrud.clocking;
 
 import com.lcclockingsystem.sbcrud.users.User;
-import com.lcclockingsystem.sbcrud.users.UserRepository;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Optional;
 
 @Data
 @Entity
@@ -19,10 +20,10 @@ public class ClockingRecord {
     private Integer clocking_id;
 
     // clock in time should be generated as current time
-    private LocalTime clockIn = LocalTime.now();
+    private LocalTime clock_in = LocalTime.now();
 
     // clock out time should not be generated as current time
-    private LocalTime clockOut;
+    private LocalTime clock_out;
     private LocalDate date = LocalDate.now();
 
     private Integer u_id;

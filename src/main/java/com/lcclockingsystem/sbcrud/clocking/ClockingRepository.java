@@ -1,3 +1,7 @@
+/**
+ * @author: Lazola Makubalo
+ * */
+
 package com.lcclockingsystem.sbcrud.clocking;
 
 import org.springframework.data.jpa.repository.JpaRepository;
