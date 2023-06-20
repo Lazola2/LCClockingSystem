@@ -53,8 +53,10 @@ public class ClockingServiceImpl implements ClockingService, TimeFormatter {
     public boolean clockOut(Integer id) {
         try {
             // getting all the records matching the id
+            List<ClockingRecord> allRecords = clockingRepository.findAll().stream().toList();
+
             List<ClockingRecord> matchingRecords = clockingRepository.findAll().stream()
-                    .filter(record -> Objects.equals(record.getClockingId(), id))
+                    .filter(record -> record.getUserId() == id)
                     .toList();
 
             // getting the last record from the matching records
@@ -65,6 +67,7 @@ public class ClockingServiceImpl implements ClockingService, TimeFormatter {
             clockingRepository.save(lastRecord);
 
             // return true if updated
+
             return true;
         } catch (Exception exception){
             // return false if not updated
