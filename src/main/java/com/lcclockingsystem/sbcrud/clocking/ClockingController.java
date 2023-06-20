@@ -40,8 +40,7 @@ public class ClockingController {
 
     @PutMapping("/user/{userId}/clockout")
     public ResponseEntity<Boolean> clockOut(@PathVariable("userId") Integer userId){
-        Boolean clockingResponse = clockingService.clockOut(userId);
-        return new ResponseEntity<>(clockingResponse, clockingResponse ? OK: BAD_REQUEST);
+        return new ResponseEntity<>(clockingService.clockOut(userId), OK);
     }
 
     @PostMapping("/add")
