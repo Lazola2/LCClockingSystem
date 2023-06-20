@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,21 +54,18 @@ public class ClockingServiceImpl implements ClockingService, TimeFormatter {
     public boolean clockOut(Integer id) {
         try {
             // getting all the records matching the id
-            List<ClockingRecord> allRecords = clockingRepository.findAll().stream().toList();
-
             List<ClockingRecord> matchingRecords = clockingRepository.findAll().stream()
-                    .filter(record -> record.getUserId() == id)
+                    .filter(record -> record.getClockingId() == id)
                     .toList();
 
             // getting the last record from the matching records
             ClockingRecord lastRecord = matchingRecords.get(matchingRecords.size()-1);
 
             // updating the clock out time
-            lastRecord.setClockOut(formatTime(LocalTime.now()));
+            lastRecord.setClockOut(formatTime( LocalTime.now(ZoneId.of("Africa/Johannesburg")) ));
             clockingRepository.save(lastRecord);
 
-            // return true if updated
-
+            // return true if update
             return true;
         } catch (Exception exception){
             // return false if not updated

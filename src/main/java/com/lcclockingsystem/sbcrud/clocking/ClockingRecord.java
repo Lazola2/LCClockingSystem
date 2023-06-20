@@ -12,6 +12,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Data
@@ -31,7 +32,8 @@ public class ClockingRecord implements TimeFormatter {
     }
 
     // method formatTime() is defined above
-    private LocalTime clockIn = formatTime(LocalTime.now());
+    private LocalTime clockIn = formatTime(LocalTime.now(
+            ZoneId.of("Africa/Johannesburg")));
 
     // clock out time should not be generated as current time
     private LocalTime clockOut;
