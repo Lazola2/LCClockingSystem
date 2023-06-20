@@ -71,42 +71,4 @@ public class ClockingServiceImpl implements ClockingService, TimeFormatter {
             return  false;
         }
     }
-
-    @Override
-    public Boolean delete(Integer userId) {
-        try {
-            // find all the clocking records
-            List<ClockingRecord> clockingRecords = clockingRepository.findAll();
-
-            // delete clocking record matching a specific userId
-            clockingRecords.forEach(clockingRecord -> {
-                if (Objects.equals(clockingRecord.getUserId(), userId)){
-                    clockingRepository.delete(clockingRecord);
-                }
-            });
-
-            // return true if deleted
-            return true;
-        } catch (Exception exception) {
-            // return false if not deleted
-            return false;
-        }
-    }
-
-    @Override
-    public Boolean delete() {
-        try {
-            clockingRepository.findAll().forEach(clockingRecord -> {
-                clockingRepository.delete(clockingRecord);
-            });
-
-            // return true if deleted
-            return true;
-        } catch(Exception exception) {
-            // return false if not deleted
-            return false;
-        }
-    }
-
-
 }

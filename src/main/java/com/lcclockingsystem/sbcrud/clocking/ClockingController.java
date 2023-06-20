@@ -9,6 +9,8 @@ import com.lcclockingsystem.sbcrud.users.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,19 +63,6 @@ public class ClockingController {
     @PutMapping("/update")
     public ResponseEntity<ClockingRecord> update(@RequestBody ClockingRecord clockingRecord){
         return new ResponseEntity<>(clockingService.update(clockingRecord), CREATED);
-    }
-
-    // delete records for a specific user
-    @DeleteMapping("/delete/user/{userId}")
-    public ResponseEntity<Boolean> delete(@PathVariable Integer userId){
-        Boolean response = clockingService.delete(userId);
-        return new ResponseEntity<>(response, response ? OK : BAD_REQUEST);
-    }
-
-    @DeleteMapping("/delete/all")
-    public ResponseEntity<Boolean> delete(){
-        Boolean response = clockingService.delete();
-        return new ResponseEntity<>(response, response ? OK : BAD_REQUEST);
     }
 
 

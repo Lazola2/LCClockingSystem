@@ -20,10 +20,4 @@ public interface ClockingService {
 
     // clock-out a user
     boolean clockOut(Integer id);
-
-    // delete clocking records for a specific user
-    Boolean delete(Integer id);
-
-    // delete all clocking records
-    Boolean delete();
 }
