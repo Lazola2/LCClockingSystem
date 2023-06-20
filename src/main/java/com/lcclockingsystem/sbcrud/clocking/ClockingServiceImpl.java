@@ -7,15 +7,15 @@ package com.lcclockingsystem.sbcrud.clocking;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.Clock;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Service
 @AllArgsConstructor
-public class ClockingServiceImpl implements ClockingService{
+public class ClockingServiceImpl implements ClockingService, TimeFormatter {
     private ClockingRepository clockingRepository;
 
     @Override
@@ -43,6 +43,13 @@ public class ClockingServiceImpl implements ClockingService{
     }
 
     @Override
+    public LocalTime formatTime(LocalTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = time.format(formatter);
+        return LocalTime.parse(formattedTime, formatter);
+    }
+
+    @Override
     public boolean clockOut(Integer id) {
         try {
             // getting all the records matching the id
@@ -54,7 +61,7 @@ public class ClockingServiceImpl implements ClockingService{
             ClockingRecord lastRecord = matchingRecords.get(matchingRecords.size()-1);
 
             // updating the clock out time
-            lastRecord.setClockOut(LocalTime.now());
+            lastRecord.setClockOut(formatTime(LocalTime.now()));
             clockingRepository.save(lastRecord);
 
             // return true if updated

@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -36,7 +38,8 @@ public class ClockingController {
 
     @PutMapping("/user/{userId}/clockout")
     public ResponseEntity<Boolean> clockOut(@PathVariable("userId") Integer userId){
-        return new ResponseEntity<>(clockingService.clockOut(userId), OK);
+        Boolean clockingResponse = clockingService.clockOut(userId);
+        return new ResponseEntity<>(clockingResponse, clockingResponse ? OK: BAD_REQUEST);
     }
 
     @PostMapping("/add")

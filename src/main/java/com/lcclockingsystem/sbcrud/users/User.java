@@ -29,7 +29,6 @@ public class User {
     private String password;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ClockingRecord> clockingRecords;
-
 }

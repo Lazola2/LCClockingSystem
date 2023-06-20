@@ -12,17 +12,26 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
 @Table(name = "clocking_records")
-public class ClockingRecord {
+public class ClockingRecord implements TimeFormatter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer clockingId;
 
-    // clock in time should be generated as current time
-    private LocalTime clockIn = LocalTime.now();
+    // method to format the time
+    @Override
+    public LocalTime formatTime(LocalTime time){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = time.format(formatter);
+        return LocalTime.parse(formattedTime, formatter);
+    }
+
+    // method formatTime() is defined above
+    private LocalTime clockIn = formatTime(LocalTime.now());
 
     // clock out time should not be generated as current time
     private LocalTime clockOut;
@@ -31,7 +40,9 @@ public class ClockingRecord {
     private Integer userId;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id", referencedColumnName = "userId")
     private User user;
+
+
 }
