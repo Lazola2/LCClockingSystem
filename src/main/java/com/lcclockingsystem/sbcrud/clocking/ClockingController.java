@@ -9,17 +9,13 @@ import com.lcclockingsystem.sbcrud.users.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @RestController
 @AllArgsConstructor
@@ -40,7 +36,8 @@ public class ClockingController {
 
     @PutMapping("/user/{userId}/clockout")
     public ResponseEntity<Boolean> clockOut(@PathVariable("userId") Integer userId){
-        return new ResponseEntity<>(clockingService.clockOut(userId), OK);
+        Boolean clockInResponse = clockingService.clockOut(userId);
+        return new ResponseEntity<>(clockInResponse, clockInResponse ? OK : UNAUTHORIZED);
     }
 
     @PostMapping("/add")
