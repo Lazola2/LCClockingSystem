@@ -33,7 +33,8 @@ public class ClockingRecord implements TimeFormatter {
 
     // method formatTime() is defined above
     private LocalTime clockIn = formatTime(LocalTime.now(
-            ZoneId.of("Africa/Johannesburg")));
+            ZoneId.of("Africa/Johannesburg")
+    ));
 
     // clock out time should not be generated as current time
     private LocalTime clockOut;

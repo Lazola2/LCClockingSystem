@@ -55,7 +55,7 @@ public class ClockingServiceImpl implements ClockingService, TimeFormatter {
         try {
             // getting all the records matching the id
             List<ClockingRecord> matchingRecords = clockingRepository.findAll().stream()
-                    .filter(record -> record.getClockingId() == id)
+                    .filter(record -> record.getUserId() == id)
                     .toList();
 
             // getting the last record from the matching records
