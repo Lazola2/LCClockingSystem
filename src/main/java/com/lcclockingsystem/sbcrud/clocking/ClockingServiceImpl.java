@@ -62,7 +62,7 @@ public class ClockingServiceImpl implements ClockingService, TimeFormatter {
             ClockingRecord lastRecord = matchingRecords.get(matchingRecords.size()-1);
 
             // updating the clock out time
-            lastRecord.setClockOut(formatTime( LocalTime.now(ZoneId.of("Africa/Johannesburg")) ));
+            lastRecord.setClockOut( formatTime(LocalTime.now(ZoneId.of("Africa/Johannesburg"))));
             clockingRepository.save(lastRecord);
 
             // return true if update

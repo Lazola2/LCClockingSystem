@@ -4,12 +4,20 @@
 
 package com.lcclockingsystem.sbcrud.users;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
@@ -46,7 +54,34 @@ public class UserController {
         return new ResponseEntity<>(userService.add(user), CREATED);
     }
 
-    // update a user
+    // update the user using patch to update partially
+    @PatchMapping("/update/user/{userId}")
+    public ResponseEntity<User> update(@PathVariable("userId") Integer userId, @RequestBody User payload){
+        User existingUser = userRepository.findById(userId).orElse(null);
+        if (existingUser == null) return ResponseEntity.notFound().build();
+
+        // copy non-null properties from updatedUser to existingUser
+        BeanUtils.copyProperties(payload, existingUser, getNullPropertyNames(payload));
+        User savedUser = userRepository.save(existingUser);
+        return ResponseEntity.ok(savedUser);
+    }
+
+    // Helper method to get null property names
+    private static String[] getNullPropertyNames(Object source){
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<>();
+        for (java.beans.PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null)
+                emptyNames.add(pd.getName());
+        }
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
+    }
+
+    // update a user put to update all details
     @PutMapping("/update")
     public ResponseEntity<User> update(@RequestBody User user){
         return new ResponseEntity<>(userService.update(user), CREATED);
